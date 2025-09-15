@@ -1,0 +1,55 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title>BloodConnect</title>
+    <link rel="stylesheet" href="Content/Site.css" />
+</head>
+<body>
+<form runat="server">
+    <header class="topbar">
+        <div class="brand">
+            <a href="~/Home.aspx" runat="server">BloodConnect</a>
+        </div>
+        <nav>
+            <asp:HyperLink ID="lnkHome" NavigateUrl="~/Home.aspx" runat="server" CssClass="nav">Home</asp:HyperLink>
+            <asp:HyperLink ID="lnkAbout" NavigateUrl="~/About.aspx" runat="server" CssClass="nav">About Us</asp:HyperLink>
+            <asp:HyperLink ID="lnkContact" NavigateUrl="~/Contact.aspx" runat="server" CssClass="nav">Contact Us</asp:HyperLink>
+            <asp:HyperLink ID="lnkDonor" NavigateUrl="~/Donor/DonorRegister.aspx" runat="server" CssClass="nav">Donor</asp:HyperLink>
+            <asp:HyperLink ID="lnkAcceptor" NavigateUrl="~/Acceptor/AcceptorRegister.aspx" runat="server" CssClass="nav">Acceptor</asp:HyperLink>
+            <asp:HyperLink ID="lnkRequest" NavigateUrl="~/Acceptor/RequestBlood.aspx" runat="server" CssClass="nav">Request</asp:HyperLink>
+            <asp:HyperLink ID="lnkAdmin" NavigateUrl="~/Admin/AdminLogin.aspx" runat="server" CssClass="nav">Admin</asp:HyperLink>
+            <asp:HyperLink ID="lnkContacts" NavigateUrl="~/LifeSavingContacts.aspx" runat="server" CssClass="nav">Life Saving Contacts</asp:HyperLink>
+            <button id="themeToggle" class="btn secondary" type="button">🌙 Dark</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </main>
+
+    <footer class="footer">
+        <span>&copy; <%: DateTime.Now.Year %> BloodConnect</span>
+    </footer>
+    <script>
+        const toggleBtn = document.getElementById('themeToggle');
+        const body = document.body;
+
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-theme');
+            toggleBtn.textContent = '☀️ Light';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            const isLight = body.classList.contains('light-theme');
+            toggleBtn.textContent = isLight ? '☀️ Light' : '🌙 Dark';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+    </script>
+</form>
+</body>
+</html>
+
